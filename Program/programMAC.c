@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <math.h>
 
-//Let this be a test application an ecnryption system
+//Let this be a test application an encryption system
 
 int c_to_n(char c)
 {
@@ -87,15 +87,12 @@ int main(void)
         {
             if(b == numResult)
             {
-                newText[b] = letters[b];
+                newText[a] = letters[b];
             }
         }
     }
-    
-    for(int a = 0; a < strlen(newText); a++)
-    {
-        printf("%c", newText[a]);
-    }
+
+    printf("Your encrypted message is: %s\n", newText);
 
     free(text);
     return 0;
