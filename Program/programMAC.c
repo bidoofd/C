@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 //Let this be a test application an encryption system
 
@@ -61,24 +62,13 @@ char *inputString(FILE* fp, size_t size){
     return realloc(str, sizeof(*str)*len);
 }
 
-int main(void)
+void encrypt()
 {
     char *text;
     char letters[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     int num1, num2;
-    int choice = 0;
 
-    //while loop for options
-    while(choice != 4)
-    {
-        printf("Choose an option:\n");
-        printf("1. Encrypt\n");
-        printf("2. Decrypt\n");
-        printf("3. Generate Key\n");
-        printf("4. Exit\n");
-        scanf("%1d", &choice);
-    }
-    fflush(stdin);
+    srand(time(NULL));
 
     //Enter text
     printf("Enter the text you want to encrypt: ");
@@ -112,11 +102,45 @@ int main(void)
                     }
                 }
             }
+            else if(isspace(text[a]) == 0)
+            {
+                int ran = (rand() % (26));
+                newText[a] = letters[ran];
+            }
         }
     }
 
     printf("Your encrypted message is: %s\n", newText);
 
     free(text);
+}
+
+void decrypt()
+{
+    int num1, num2;
+}
+
+int main(void)
+{
+    int choice = 0;
+    //while loop for options
+    while(choice != 4)
+    {
+        printf("Choose an option:\n");
+        printf("1. Encrypt\n");
+        printf("2. Decrypt\n");
+        printf("3. Generate Key\n");
+        printf("4. Exit\n");
+        scanf("%1d", &choice);
+        fflush(stdin);
+        if(choice == 1)
+        {
+            encrypt();
+        }
+        else if(choice == 2)
+        {
+            decrypt();
+        }
+    }
     return 0;
 }
