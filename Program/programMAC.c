@@ -68,8 +68,6 @@ void encrypt()
     char letters[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     int num1, num2;
 
-    srand(time(NULL));
-
     //Enter text
     printf("Enter the text you want to encrypt: ");
     //INFINITE STRING
@@ -83,6 +81,7 @@ void encrypt()
     printf("Enter the second number: \n");
     scanf("%2147483647d", &num2);
     
+    fflush(stdin);
     //lowers text
     strlwr(text);
     
@@ -102,11 +101,11 @@ void encrypt()
                     }
                 }
             }
-            else if(isspace(text[a]) == 0)
+            /*else if(isspace(text[a]) == 0)
             {
                 int ran = (rand() % (26));
                 newText[a] = letters[ran];
-            }
+            }*/
         }
     }
 
@@ -118,6 +117,38 @@ void encrypt()
 void decrypt()
 {
     int num1, num2;
+    char *secText;
+    char letters[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
+    printf("Enter your ciphered text: \n");
+    secText = inputString(stdin, 10);
+    char newText[strlen(secText)];
+    printf("Enter the two encryption numbers you want to choose. \n");
+    printf("Enter the first number: \n");
+    scanf("%2147483647d", &num1);
+    printf("Enter the second number: \n");
+    scanf("%2147483647d", &num2);
+    
+    fflush(stdin);
+    //lowers text
+    strlwr(secText);
+    for(int a = 0; a < strlen(secText); a++)
+    {
+        for(int b = 0; b < sizeof(letters); b++)
+        {
+            if(secText[a] == letters[b])
+            {
+                int letterNum = b + 1;
+                int result = fmod((float)powf(letterNum, num1), num2);
+                //printf("%d\n", result);
+                newText[a] = letters[result];
+            }
+        }
+    }
+
+    printf("Your decrypted message is: %s\n", newText);
+
+    free(secText);
 }
 
 int main(void)
