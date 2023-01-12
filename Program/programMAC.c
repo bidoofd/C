@@ -66,28 +66,51 @@ int main(void)
     char *text;
     char letters[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     int num1, num2;
+    int choice = 0;
 
+    //while loop for options
+    while(choice != 4)
+    {
+        printf("Choose an option:\n");
+        printf("1. Encrypt\n");
+        printf("2. Decrypt\n");
+        printf("3. Generate Key\n");
+        printf("4. Exit\n");
+        scanf("%1d", &choice);
+    }
+    fflush(stdin);
+
+    //Enter text
     printf("Enter the text you want to encrypt: ");
+    //INFINITE STRING
     text = inputString(stdin, 10);
+    //create new string
     char newText[strlen(text)];
+    //enter numbers
     printf("Enter the two encryption numbers you want to choose. \n");
     printf("Enter the first number: \n");
     scanf("%2147483647d", &num1);
     printf("Enter the second number: \n");
     scanf("%2147483647d", &num2);
     
+    //lowers text
     strlwr(text);
     
     for(int a = 0; a < strlen(text); a++)
     {
-        int numMessage = c_to_n(text[a]) + 1;
-        int numResult = (int)pow(numMessage, num1) % num2;
-        //printf("%d\n", numResult);
-        for(int b = 0; b < sizeof(letters); b++)
+        if(isalpha(text[a]) == 0 || isspace(text[a]) == 0)
         {
-            if(b == numResult)
+            if(isalpha(text[a]) == 0)
             {
-                newText[a] = letters[b];
+                int numMessage = c_to_n(text[a]) + 1;
+                int numResult = (int)pow(numMessage, num1) % num2;
+                for(int b = 0; b < sizeof(letters); b++)
+                {
+                    if(b == numResult)
+                    {
+                        newText[a] = letters[b];
+                    }
+                }
             }
         }
     }
