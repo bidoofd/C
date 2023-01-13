@@ -85,7 +85,7 @@ void encrypt()
         {
             if(isalpha(text[a]) != 0)
             {
-                int numMessage = -1;
+                /*int numMessage = -1;
                 for(int b = 0; b < sizeof(letters); b++)
                 {
                     if(text[a] == letters[b])
@@ -93,9 +93,9 @@ void encrypt()
                         numMessage = b;
                         break;
                     }
-                }
+                }*/
                 //printf("%d\n", numMessage);
-                long double numResult = fmod(pow(numMessage, num1), num2);
+                long double numResult = fmod(pow((int)text[a], num1), num2);
                 //4printf("%Lf\n", numResult);
                 newText[a] = letters[(int)numResult];
             }
@@ -133,16 +133,11 @@ void decrypt()
     strlwr(secText);
     for(int a = 0; a < strlen(secText); a++)
     {
-        for(int b = 0; b < sizeof(letters); b++)
-        {
-            if(secText[a] == letters[b])
-            {
-                int letterNum = b;
-                long double result = fmod(pow(letterNum, num1), num2);
-                printf("%Lf\n", result);
-                newText[a] = letters[(int)result];
-            }
-        }
+        int letterNum = (int)secText[a];
+        printf("%d\n", letterNum);
+        long double result = fmod(pow(letterNum, num1), num2);
+        printf("%Lf\n", result);
+        //newText[a] = letters[(int)result];
     }
 
     newText[strlen(secText)] = '\0';
@@ -165,7 +160,6 @@ void generate()
         scanf("%d", &number2);
         if(isPrime(number1) == 1 && isPrime(number2) == 1)
         {
-            printf("VALID PRIME NUMBERS!\n");
             break;
         }
         else
@@ -173,6 +167,8 @@ void generate()
             printf("NOT VALID PRIME NUMBERS\n");
         }
     }
+
+    //int phi = (num1 - 1) * (num2 - 1);
 
 
 }
