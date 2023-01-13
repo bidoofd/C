@@ -87,27 +87,31 @@ void encrypt()
     
     for(int a = 0; a < strlen(text); a++)
     {
-        if(isalpha(text[a]) == 0 || isspace(text[a]) == 0)
+        if(isalpha(text[a]) != 0 || isspace(text[a]) != 0)
         {
-            if(isalpha(text[a]) == 0)
+            if(isalpha(text[a]) != 0)
             {
-                int numMessage = c_to_n(text[a]) + 1;
-                int numResult = (int)pow(numMessage, num1) % num2;
+                int numMessage = -1;
                 for(int b = 0; b < sizeof(letters); b++)
                 {
-                    if(b == numResult)
+                    if(text[a] == letters[b])
                     {
-                        newText[a] = letters[b];
+                        numMessage = b+1;
+                        break;
                     }
                 }
+                long double numResult = fmod(pow(numMessage, num1), num2);
+                printf("%Lf\n", numResult);
+                newText[a] = letters[(int)numResult];
             }
-            /*else if(isspace(text[a]) == 0)
+            else if(isspace(text[a]) != 0)
             {
                 int ran = (rand() % (26));
                 newText[a] = letters[ran];
-            }*/
+            }
         }
     }
+    newText[strlen(text)] = '\0';
 
     printf("Your encrypted message is: %s\n", newText);
 
@@ -138,13 +142,15 @@ void decrypt()
         {
             if(secText[a] == letters[b])
             {
-                int letterNum = b + 1;
-                int result = fmod((float)powf(letterNum, num1), num2);
-                //printf("%d\n", result);
-                newText[a] = letters[result];
+                int letterNum = b+1;
+                long double result = fmod(pow(letterNum, num1), num2);
+                //printf("%f\n", result);
+                newText[a] = letters[(int)result];
             }
         }
     }
+
+    newText[strlen(secText)] = '\0';
 
     printf("Your decrypted message is: %s\n", newText);
 
