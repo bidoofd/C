@@ -7,20 +7,6 @@
 
 //Let this be a test application an encryption system
 
-int c_to_n(char c)
-{
-    int n = -1;
-    static const char * const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char *p = strchr(alphabet, toupper((unsigned char)c));
-
-    if (p)
-    {
-        n = p - alphabet;
-    }
-
-    return n;
-}
-
 char * strlwr(char * s)
 {
         char *t = s;
@@ -62,6 +48,14 @@ char *inputString(FILE* fp, size_t size){
     return realloc(str, sizeof(*str)*len);
 }
 
+int isPrime(int number) {
+    int i;
+    for (i=2; i<number; i++) {
+        if (number % i == 0 && i != number) return 0;
+    }
+    return 1;
+}
+
 void encrypt()
 {
     char *text;
@@ -96,12 +90,13 @@ void encrypt()
                 {
                     if(text[a] == letters[b])
                     {
-                        numMessage = b+1;
+                        numMessage = b;
                         break;
                     }
                 }
+                //printf("%d\n", numMessage);
                 long double numResult = fmod(pow(numMessage, num1), num2);
-                printf("%Lf\n", numResult);
+                //4printf("%Lf\n", numResult);
                 newText[a] = letters[(int)numResult];
             }
             else if(isspace(text[a]) != 0)
@@ -142,9 +137,9 @@ void decrypt()
         {
             if(secText[a] == letters[b])
             {
-                int letterNum = b+1;
+                int letterNum = b;
                 long double result = fmod(pow(letterNum, num1), num2);
-                //printf("%f\n", result);
+                printf("%Lf\n", result);
                 newText[a] = letters[(int)result];
             }
         }
@@ -155,6 +150,31 @@ void decrypt()
     printf("Your decrypted message is: %s\n", newText);
 
     free(secText);
+}
+
+void generate()
+{
+    int number1, number2;
+    int flag = 0;
+    while(flag != 1)
+    {  
+        printf("Enter two prime numbers: \n");
+        printf("Enter the first prime number: \n");
+        scanf("%d", &number1);
+        printf("Enter the second prime number: \n");
+        scanf("%d", &number2);
+        if(isPrime(number1) == 1 && isPrime(number2) == 1)
+        {
+            printf("VALID PRIME NUMBERS!\n");
+            break;
+        }
+        else
+        {
+            printf("NOT VALID PRIME NUMBERS\n");
+        }
+    }
+
+
 }
 
 int main(void)
@@ -177,6 +197,10 @@ int main(void)
         else if(choice == 2)
         {
             decrypt();
+        }
+        else if(choice == 3)
+        {
+            generate();
         }
     }
     return 0;
