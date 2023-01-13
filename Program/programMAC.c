@@ -6,6 +6,7 @@
 #include <time.h>
 
 //Let this be a test application an encryption system
+//WE RESTART
 
 char * strlwr(char * s)
 {
@@ -85,18 +86,7 @@ void encrypt()
         {
             if(isalpha(text[a]) != 0)
             {
-                /*int numMessage = -1;
-                for(int b = 0; b < sizeof(letters); b++)
-                {
-                    if(text[a] == letters[b])
-                    {
-                        numMessage = b;
-                        break;
-                    }
-                }*/
-                //printf("%d\n", numMessage);
                 long double numResult = fmod(pow((int)text[a], num1), num2);
-                //4printf("%Lf\n", numResult);
                 newText[a] = letters[(int)numResult];
             }
             else if(isspace(text[a]) != 0)
