@@ -82,19 +82,12 @@ void encrypt()
     
     for(int a = 0; a < strlen(text); a++)
     {
-        if(isalpha(text[a]) != 0 || isspace(text[a]) != 0)
-        {
-            if(isalpha(text[a]) != 0)
-            {
-                long double numResult = fmod(pow((int)text[a], num1), num2);
-                newText[a] = letters[(int)numResult];
-            }
-            else if(isspace(text[a]) != 0)
-            {
-                int ran = (rand() % (26));
-                newText[a] = letters[ran];
-            }
-        }
+        long double numResult = fmod(pow((int)text[a] + 128, num1), num2);
+        int tempText = (int) numResult;
+        char encText = tempText + '0';
+        //printf("%Lf\n", numResult);
+        //printf("%c", encText);
+        newText[a] = tempText + '0';
     }
     newText[strlen(text)] = '\0';
 
@@ -124,10 +117,12 @@ void decrypt()
     for(int a = 0; a < strlen(secText); a++)
     {
         int letterNum = (int)secText[a];
-        printf("%d\n", letterNum);
-        long double result = fmod(pow(letterNum, num1), num2);
-        printf("%Lf\n", result);
-        //newText[a] = letters[(int)result];
+        //printf("%d\n", letterNum);
+        long double result = fmod(pow(letterNum-128, num1), num2);
+        int tempText = (int) result;
+        //printf("%Lf\n", result);
+        //printf("%d", tempText);
+        newText[a] = tempText + '0';
     }
 
     newText[strlen(secText)] = '\0';
