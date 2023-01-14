@@ -6,7 +6,7 @@
 #include <time.h>
 
 //Let this be a test application an encryption system
-//apparently we were right we just need to break it up
+//not right we're goin back
 
 char * strlwr(char * s)
 {
